@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Screenshot-Tool</title>
+<meta name="theme-color" content="#d10707">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="stylesheet" href="app.css">
+</head><body>
+<header class="st-bar">
+<span class="st-brand">Screenshot-Tool</span>
+<form class="st-url" id="st-form"><input id="st-input" type="url" required placeholder="https://beispiel.de" aria-label="Adresse der Webseite"><button class="st-btn" type="submit">Screenshots ziehen</button></form>
+<button class="st-btn st-btn--ghost" type="button" id="st-batch-open">Stapel</button>
+<button class="st-btn st-btn--ghost" type="button" id="st-svc-open"><span class="st-dot" id="st-svc-dot"></span>Dienst</button>
+</header>
+<dialog class="st-dlg" id="st-svc">
+<form method="dialog" class="st-dlg__body">
+<h2 class="st-dlg__title">Screenshot-Dienst</h2>
+<p>Eigene browserless-Instanz. Ohne Eintrag nutzt das Tool Microlink mit Tageskontingent.</p>
+<label class="st-field"><span>Adresse</span><input id="st-svc-url" type="url" placeholder="https://browserless.example.com"></label>
+<label class="st-field"><span>Token</span><input id="st-svc-token" type="password" autocomplete="off"></label>
+<p class="st-dlg__msg" id="st-svc-msg" aria-live="polite"></p>
+<div class="st-dlg__actions"><button class="st-btn st-btn--ghost" type="button" id="st-svc-test">Verbindung testen</button><button class="st-btn" value="save" id="st-svc-save">Speichern</button></div>
+</form>
+</dialog>
+<dialog class="st-dlg st-dlg--wide" id="st-batch">
+<form method="dialog" class="st-dlg__body">
+<h2 class="st-dlg__title">Stapel</h2>
+<p>Eine Adresse pro Zeile. Für jede Adresse entstehen die Screenshots der eingeschalteten Geräte, das Einzelbild 1600 × 1000 und das Mockup. Alles landet in einer ZIP-Datei, ein Ordner pro Seite. Gespeicherte Anordnungen pro Adresse werden übernommen, sonst die aktuelle.</p>
+<textarea id="st-batch-list" rows="10" placeholder="https://beispiel.de&#10;https://beispiel.de/kontakt"></textarea>
+<div class="st-progress" id="st-batch-prog" hidden><span id="st-batch-bar"></span></div>
+<p class="st-dlg__msg" id="st-batch-msg" aria-live="polite"></p>
+<div class="st-dlg__actions"><button class="st-btn st-btn--ghost" value="close" id="st-batch-close">Schließen</button><button class="st-btn" type="button" id="st-batch-run">Stapel starten</button></div>
+</form>
+</dialog>
+<div class="st-tools">
+<span class="st-label">Anordnung</span>
+<div class="st-seg" id="st-presets" role="group" aria-label="Anordnung"></div>
+<span class="st-sep" aria-hidden="true"></span>
+<span class="st-label">Geräte</span>
+<div class="st-seg" id="st-devs" role="group" aria-label="Geräte ein- und ausblenden"></div>
+<span class="st-sep" aria-hidden="true"></span>
+<div class="st-seg" id="st-bg" role="group" aria-label="Hintergrund">
+<button type="button" data-bg="transparent" class="is-active">Transparent</button>
+<button type="button" data-bg="hell">Hell</button>
+<button type="button" data-bg="dunkel">Dunkel</button>
+<button type="button" data-bg="rot">Rot</button>
+</div>
+<div class="st-sel" id="st-sel" hidden>
+<span class="st-sep" aria-hidden="true"></span>
+<label class="st-label" for="st-size">Größe</label>
+<input type="range" id="st-size" min="120" max="2000" step="10">
+<div class="st-seg" id="st-orient" role="group" aria-label="Ausrichtung" hidden><button type="button" data-o="hoch">Hochformat</button><button type="button" data-o="quer">Querformat</button></div>
+<button class="st-btn st-btn--ghost" type="button" id="st-front">Nach vorne</button>
+<button class="st-btn st-btn--ghost" type="button" id="st-upload">Eigener Screenshot</button>
+<button class="st-btn st-btn--ghost" type="button" id="st-win">Fenster öffnen</button>
+<button class="st-btn st-btn--ghost" type="button" id="st-live">Live verbinden</button>
+</div>
+</div>
+<main class="st-main" id="st-main"><div class="st-stage bg-transparent" id="st-stage"></div></main>
+<footer class="st-foot">
+<p class="st-status" id="st-status" aria-live="polite">Adresse eingeben, eigene Screenshots auf die Geräte ziehen oder mit ⌘V einfügen. Geräte lassen sich verschieben.</p>
+<div class="st-files">
+<div class="st-seg" id="st-fmt" role="group" aria-label="Dateiformat"><button type="button" data-f="webp" class="is-active">WebP</button><button type="button" data-f="png">PNG</button><button type="button" data-f="jpg">JPG</button></div>
+<button class="st-btn st-btn--ghost" type="button" id="st-raw-ref" disabled>Einzelbild 1600 × 1000</button>
+<button class="st-btn st-btn--ghost" type="button" id="st-raw-all" disabled>Alle Einzel-Screenshots</button>
+<button class="st-btn" type="button" id="st-export">Mockup herunterladen</button>
+</div>
+</footer>
+<input type="file" id="st-file" accept="image/*" hidden>
+<script src="app.js"></script>
+</body></html>

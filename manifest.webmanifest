@@ -1,0 +1,18 @@
+{
+  "name": "Screenshot-Tool",
+  "short_name": "Screenshots",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f2f2",
+  "theme_color": "#d10707",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
